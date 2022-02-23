@@ -3,6 +3,7 @@ import logging
 
 import azure.functions as func
 
+from shared_code import get_oldest_timeline_tweet
 from shared_code import twitter_update_helper
 
 def main(mytimer: func.TimerRequest) -> None:
@@ -15,7 +16,9 @@ def main(mytimer: func.TimerRequest) -> None:
 
   logging.info('Python timer trigger function ran at %s', utc_timestamp)
 
-  param = twitter_update_helper.Param('ほげ')
+  id, text = get_oldest_timeline_tweet.get()
+
+  param = twitter_update_helper.Param(text)
   twitter_update_helper.request(param)
 
   logging.info('Python timer trigger function exit at %s', utc_timestamp)
