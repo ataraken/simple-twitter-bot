@@ -1,8 +1,8 @@
 # <project_root>/shared_code/twitter_timeline_helper.py
 
+import json
 from os import environ
 from shared_code import twitter_oauth_helper
-import twitter_oauth_helper
 
 class Param:
   def __init__(self):
@@ -58,7 +58,7 @@ class Param:
   def get_tweet_mode(self) -> str:
     return self._param['tweet_mode']
 
-def request(param):
+def request(param: Param) -> str:
   endpoint_url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
   client = twitter_oauth_helper.create_session()

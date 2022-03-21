@@ -3,7 +3,7 @@ import logging
 
 import azure.functions as func
 
-from shared_code import get_oldest_timeline_tweet
+from shared_code import get_oldest_timeline_tweet, twitter_destroy_helper
 from shared_code import twitter_update_helper
 
 def main(mytimer: func.TimerRequest) -> None:
@@ -16,9 +16,18 @@ def main(mytimer: func.TimerRequest) -> None:
 
   logging.info('Python timer trigger function ran at %s', utc_timestamp)
 
-  id, text = get_oldest_timeline_tweet.get()
+  try:
+    logging.info(f'Python timer trigger function. Getting oldest tweet at %s', utc_timestamp)
+    id, text = get_oldest_timeline_tweet.get()
 
-  param = twitter_update_helper.Param(text)
-  twitter_update_helper.request(param)
+    logging.info(f'Python timer trigger function. Upload tweet at %s', utc_timestamp)
+    param = twitter_update_helper.Param(text)
+    twitter_update_helper.request(param)
 
+    logging.info(f'Python timer trigger function. Deleting oldest tweet at %s', utc_timestamp)
+    param = twitter_destroy_helper.Param(id)
+    twitter_destroy_helper.request(param)
+  except Exception as e:
+    logging.info(f'Python timer trigger function. %s %s', e, utc_timestamp)
+    
   logging.info('Python timer trigger function exit at %s', utc_timestamp)
