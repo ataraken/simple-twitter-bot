@@ -3,7 +3,8 @@ import logging
 
 import azure.functions as func
 
-from shared_code import get_oldest_timeline_tweet, twitter_destroy_helper
+from shared_code import get_oldest_timeline_tweet
+from shared_code import twitter_destroy_helper
 from shared_code import twitter_update_helper
 
 def main(mytimer: func.TimerRequest) -> None:
