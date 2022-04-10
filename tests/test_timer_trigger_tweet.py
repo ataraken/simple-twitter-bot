@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 from unittest.mock import patch
 
-import TimerTriggerTweet
+import timer_trigger_tweet
 
 class TestTimerTriggerTweet(unittest.TestCase):
 
@@ -22,7 +22,7 @@ class TestTimerTriggerTweet(unittest.TestCase):
         session_mock.return_value = Mock()
         destroy_mock.return_value = Mock()
 
-        TimerTriggerTweet.main(TestTimerTriggerTweet.TimerMock())
+        timer_trigger_tweet.main(TestTimerTriggerTweet.TimerMock())
 
         self.assertEqual(oldest_mock.call_count, 1)
         self.assertEqual(update_mock.call_count, 1)
@@ -38,7 +38,7 @@ class TestTimerTriggerTweet(unittest.TestCase):
     def test_error1(self, oldest_mock, update_mock, proxy_mock, session_mock, destroy_mock):
         oldest_mock.side_effect = RuntimeError('Test Error.')
 
-        TimerTriggerTweet.main(TestTimerTriggerTweet.TimerMock())
+        timer_trigger_tweet.main(TestTimerTriggerTweet.TimerMock())
 
         self.assertTrue(True)
 
@@ -52,7 +52,7 @@ class TestTimerTriggerTweet(unittest.TestCase):
         update_mock.return_value = Mock()
         proxy_mock.side_effect = RuntimeError('Test Error.')
 
-        TimerTriggerTweet.main(TestTimerTriggerTweet.TimerMock())
+        timer_trigger_tweet.main(TestTimerTriggerTweet.TimerMock())
 
         self.assertEqual(oldest_mock.call_count, 1)
         self.assertEqual(update_mock.call_count, 1)
@@ -69,7 +69,7 @@ class TestTimerTriggerTweet(unittest.TestCase):
         update_mock.return_value = Mock()
         proxy_mock.side_effect = [ True, RuntimeError('Test Error.') ]
 
-        TimerTriggerTweet.main(TestTimerTriggerTweet.TimerMock())
+        timer_trigger_tweet.main(TestTimerTriggerTweet.TimerMock())
 
         self.assertEqual(oldest_mock.call_count, 1)
         self.assertEqual(update_mock.call_count, 1)

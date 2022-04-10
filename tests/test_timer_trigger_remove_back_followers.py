@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from unittest.mock import patch
 from unittest.mock import call
 
-import TimerTriggerRemoveBackFollowers
+import timer_trigger_remove_back_followers
 
 class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
     class TimerMock:
@@ -32,7 +32,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ { 'ids': [1, 2, 3, 4] }, { 'ids': [1, 3] }, True, True]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertEqual(destroy_mock.call_args_list, [call(2), call(4)])
 
@@ -48,7 +48,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ { 'ids': [1, 2, 3, 4, 5, 6] }, { 'ids': [1, 4] }, True, True, True, True]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertEqual(destroy_mock.call_args_list, [call(2), call(3), call(5), call(6)])
 
@@ -64,7 +64,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ { 'ids': [1, 2] }, { 'ids': [1, 2] }]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertFalse(destroy_mock.called)
 
@@ -81,7 +81,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [RuntimeError('Test Error.')]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertTrue(friends_mock.called)
         self.assertFalse(followers_mock.called)
@@ -99,7 +99,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ True, RuntimeError('Test Error.')]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertTrue(friends_mock.called)
         self.assertTrue(followers_mock.called)
@@ -117,7 +117,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ { 'ids': [1, 2] }, { 'ids': [1] }, RuntimeError('Test Error.')]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertTrue(friends_mock.called)
         self.assertTrue(followers_mock.called)
@@ -135,7 +135,7 @@ class TestTimerTriggerRemoveBackFollowers(unittest.TestCase):
                     get_session_mock, post_session_mock, request_mock)
         request_mock.side_effect = [ { 'ids': [1, 2, 3] }, { 'ids': [1] }, True, RuntimeError('Test Error.')]
 
-        TimerTriggerRemoveBackFollowers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
+        timer_trigger_remove_back_followers.main(TestTimerTriggerRemoveBackFollowers.TimerMock())
 
         self.assertTrue(friends_mock.called)
         self.assertTrue(followers_mock.called)
