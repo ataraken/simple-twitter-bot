@@ -3,8 +3,9 @@ import logging
 
 import azure.functions as func
 
+from shared_code import twitter_proxy
 from shared_code import twitter_friends_ids_helper
-from shared_code import twitter_followers_ids_hepler
+from shared_code import twitter_followers_ids_helper
 from shared_code import twitter_friendships_destroy_helper
 
 def main(mytimer: func.TimerRequest) -> None:
@@ -18,16 +19,16 @@ def main(mytimer: func.TimerRequest) -> None:
 
     try:
         param = twitter_friends_ids_helper.Param()
-        friends = twitter_friends_ids_helper.request(param)
+        friends = twitter_proxy.request(param, twitter_proxy.get_get_session())
 
-        param = twitter_followers_ids_hepler.Param()
-        followers = twitter_followers_ids_hepler.request(param)
+        param = twitter_followers_ids_helper.Param()
+        followers = twitter_proxy.request(param, twitter_proxy.get_get_session())
 
         targets = [ id for id in friends['ids'] if not id in followers['ids'] ]
 
         for id in targets:
             param = twitter_friendships_destroy_helper.Param(id)
-            twitter_friendships_destroy_helper.request(param)
+            twitter_proxy.request(param, twitter_proxy.get_post_session())
 
     except Exception as e:
         logging.info(f'Python timer trigger function. %s %s', e, utc_timestamp)
