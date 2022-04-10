@@ -4,7 +4,6 @@
 import unittest
 from unittest.mock import patch
 
-import azure.functions as func
 from shared_code import twitter_destroy_helper
 
 class TestTwitterDestroyParam(unittest.TestCase):

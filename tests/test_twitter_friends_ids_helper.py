@@ -2,10 +2,9 @@
 import unittest
 from unittest.mock import patch
 
-import azure.functions as func
 from shared_code import twitter_friends_ids_helper
 
-class TestTwitterFriends_idsHelper(unittest.TestCase):
+class TestTwitterFriendsIdsHelper(unittest.TestCase):
 
     @patch.dict('os.environ', {'TWITTER_USER_ID': 'test-user-id'})
     def setUp(self) -> None:

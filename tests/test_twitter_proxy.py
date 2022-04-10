@@ -5,8 +5,6 @@ import unittest
 from unittest.mock import Mock
 from unittest.mock import patch
 
-import azure.functions as func
-
 import shared_code
 from shared_code import twitter_proxy
 

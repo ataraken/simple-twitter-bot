@@ -5,7 +5,6 @@ import unittest
 from unittest.mock import Mock
 from unittest.mock import patch
 
-import azure.functions as func
 from shared_code import get_oldest_timeline_tweet
 
 class TestGetOldestTimelineTweet(unittest.TestCase):
