@@ -2,58 +2,54 @@
 
 import json
 from os import environ
-from shared_code import twitter_oauth_helper
+from shared_code import twitter_proxy
 
-class Param:
-  def __init__(self):
-    self._param = {
-      'user_id': environ['TWITTER_USER_ID'],
-      'screen_name': None,
-      'cursor': None,
-      'stringify_ids': None,
-      'count': 5000
-    }
+class Param(twitter_proxy.ParamInterface):
+    def __init__(self):
+        self._param = {
+            'user_id': environ['TWITTER_USER_ID'],
+            'screen_name': None,
+            'cursor': None,
+            'stringify_ids': None,
+            'count': 5000
+        }
 
-  def convert_to_query(self) -> str:
-    return { k: self._param[k] for k in self._param if None != self._param[k] }
+    def set_user_id(self, id: str) -> None:
+        self._param['user_id'] = id
 
-  def set_user_id(self, id: str) -> None:
-    self._param['user_id'] = id
+    def get_user_id(self) -> str:
+        return self._param['user_id']
 
-  def set_screen_name(self, name: str) -> None:
-    self._param['screen_name'] = name
+    def set_screen_name(self, name: str) -> None:
+        self._param['screen_name'] = name
 
-  def set_cursor(self, cursor: str) -> None:
-    self._param['cursor'] = cursor
+    def get_screen_name(self) -> str:
+        return self._param['screen_name']
 
-  def set_stringify_ids(self, stringify_ids: str) -> None:
-    self._param['stringify_ids'] = stringify_ids
+    def set_cursor(self, cursor: str) -> None:
+        self._param['cursor'] = cursor
 
-  def set_count(self, cnt: int) -> None:
-    up_to_count = 5000
+    def get_cursor(self) -> str:
+        return self._param['cursor']
 
-    if cnt <= up_to_count:
-      self._param['count'] = cnt
-    elif cnt <= 0:
-      self._param['count'] = 1
-    else:
-      self._param['count'] = up_to_count
+    def set_stringify_ids(self, stringify_ids: str) -> None:
+        self._param['stringify_ids'] = stringify_ids
 
-def request(param: Param) -> str:
-  endpoint_url = 'https://api.twitter.com/1.1/friends/ids.json'
+    def get_stringify_ids(self) -> str:
+        return self._param['stringify_ids']
 
-  client = twitter_oauth_helper.create_session()
+    def set_count(self, cnt: int) -> None:
+        up_to_count = 5000
 
-  params = param.convert_to_query()
+        if cnt <= 0:
+            self._param['count'] = 1
+        elif cnt <= up_to_count:
+            self._param['count'] = cnt
+        else:
+            self._param['count'] = up_to_count
 
-  if len(params) == 0:
-    res = client.get(endpoint_url)
-  else:
-    res = client.get(endpoint_url, params=params)
+    def get_count(self) -> int:
+        return self._param['count']
 
-  if res.status_code == 200:
-    res = json.loads(res.text)
-  else:
-    raise RuntimeError('Network Error. status code: {res.status_code}')
-
-  return res
+    def get_endpoint_url(self) -> str:
+        return 'https://api.twitter.com/1.1/friends/ids.json'
