@@ -1,39 +1,25 @@
 # <project_root>/shared_code/twitter_friends_users_show_helper.py
 
-import json
-from shared_code import twitter_oauth_helper
+from shared_code import twitter_proxy
 
-class Param:
-  def __init__(self, user_id: int):
-    self._param = {
-      'screen_name': None,
-      'user_id': user_id
-    }
+class Param(twitter_proxy.ParamInterface):
+    def __init__(self, user_id: int):
+        self._param = {
+            'screen_name': None,
+            'user_id': user_id
+        }
 
-  def convert_to_query(self) -> str:
-    return { k: self._param[k] for k in self._param if None != self._param[k] }
+    def set_user_id(self, id: int) -> None:
+        self._param['user_id'] = id
 
-  def set_user_id(self, id: int) -> None:
-    self._param['user_id'] = id
+    def set_screen_name(self, name: str) -> None:
+        self._param['screen_name'] = name
 
-  def set_screen_name(self, name: str) -> None:
-    self._param['screen_name'] = name
+    def get_user_id(self) -> int:
+        return self._param['user_id']
 
-def request(param: Param) -> str:
-  endpoint_url = 'https://api.twitter.com/1.1/friendships/destroy.json'
+    def get_screen_name(self) -> str:
+        return self._param['screen_name']
 
-  client = twitter_oauth_helper.create_session()
-
-  params = param.convert_to_query()
-
-  if len(params) == 0:
-    res = client.post(endpoint_url)
-  else:
-    res = client.post(endpoint_url, params=params)
-
-  if res.status_code == 200:
-    res = json.loads(res.text)
-  else:
-    raise RuntimeError('Network Error. status code: {res.status_code}')
-
-  return res
+    def get_endpoint_url(self) -> str:
+        return 'https://api.twitter.com/1.1/friendships/destroy.json'

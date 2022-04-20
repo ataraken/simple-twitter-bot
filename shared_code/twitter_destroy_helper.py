@@ -1,6 +1,5 @@
 # <project_root>/shared_code/twitter_destroy_helper.py
 
-import json
 from shared_code import twitter_proxy
 
 class Param(twitter_proxy.ParamInterface):

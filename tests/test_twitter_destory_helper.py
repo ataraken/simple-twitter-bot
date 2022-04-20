@@ -10,11 +10,16 @@ class TestTwitterDestroyParam(unittest.TestCase):
     """Test class for Param class to use twitter destory API."""
 
     def test_constructor(self):
-        param = twitter_destroy_helper.Param('tweet-id')
-        self.assertEqual(param.get_tweet_id(), 'tweet-id')
+        param = twitter_destroy_helper.Param(12345)
+        self.assertEqual(param.get_tweet_id(), 12345)
 
     def test_endpoint_url(self):
-        id = 'tweet-id'
+        id = 12345
+        param = twitter_destroy_helper.Param(id)
+        self.assertEqual(param.get_endpoint_url(), f'https://api.twitter.com/1.1/statuses/destroy/{id}.json')
+
+    def test_endpoint_url2(self):
+        id = 148215270139483904
         param = twitter_destroy_helper.Param(id)
         self.assertEqual(param.get_endpoint_url(), f'https://api.twitter.com/1.1/statuses/destroy/{id}.json')
 
