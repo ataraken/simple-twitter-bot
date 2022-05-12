@@ -9,7 +9,6 @@ from shared_code import twitter_destroy_helper
 from shared_code import twitter_update_helper
 
 def main(mytimer: func.TimerRequest) -> None:
-
     utc_timestamp = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
 
@@ -24,12 +23,12 @@ def main(mytimer: func.TimerRequest) -> None:
 
         logging.info(f'Python timer trigger function. Upload tweet at %s', utc_timestamp)
         param = twitter_update_helper.Param(text)
-        twitter_proxy.request(param, twitter_proxy.get_post_session())
+        twitter_proxy.request(param, param.get_session())
 
         logging.info(f'Python timer trigger function. Deleting oldest tweet at %s', utc_timestamp)
         param = twitter_destroy_helper.Param(id)
-        twitter_proxy.request(param, twitter_proxy.get_post_session())
+        twitter_proxy.request(param, param.get_session())
     except Exception as e:
-        logging.info(f'Python timer trigger function. %s %s', e, utc_timestamp)
+        logging.error(f'Python timer trigger function. %s %s', e, utc_timestamp)
     
     logging.info('Python timer trigger function exit at %s', utc_timestamp)

@@ -4,6 +4,7 @@ from shared_code import twitter_proxy
 
 class Param(twitter_proxy.ParamInterface):
     def __init__(self, user_id: int):
+        super().__init__()
         self._param = {
             'screen_name': None,
             'user_id': user_id
@@ -23,3 +24,7 @@ class Param(twitter_proxy.ParamInterface):
 
     def get_endpoint_url(self) -> str:
         return 'https://api.twitter.com/1.1/friendships/destroy.json'
+
+    def get_session(self) -> object:
+        return self._session.post
+        

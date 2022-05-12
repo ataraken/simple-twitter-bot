@@ -7,8 +7,9 @@ from shared_code import twitter_followers_ids_helper
 
 class TestTwitterFollowersIdsHelper(unittest.TestCase):
 
+    @patch('shared_code.twitter_oauth_helper.create_session')
     @patch.dict('os.environ', {'TWITTER_USER_ID': 'test-user-id'})
-    def setUp(self) -> None:
+    def setUp(self, mock) -> None:
         self._param = twitter_followers_ids_helper.Param()
 
     def tearDown(self) -> None:
@@ -81,6 +82,9 @@ class TestTwitterFollowersIdsHelper(unittest.TestCase):
 
     def test_endpoint_url(self) -> None:
         self.assertEqual(self._param.get_endpoint_url(), 'https://api.twitter.com/1.1/followers/ids.json')
+
+    def test_session(self) -> None:
+        self.assertEqual(self._param.get_session(), self._param._session.get)
 
 if __name__ == '__main__':
     unittest.main()

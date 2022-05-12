@@ -23,7 +23,11 @@ class TestTwitterProxy(unittest.TestCase):
         def get_endpoint_url(self) -> str:
             return 'https://test.com'
 
-    def setUp(self):
+        def get_session(self) -> object:
+            return None
+
+    @patch('shared_code.twitter_oauth_helper.create_session')
+    def setUp(self, mock):
         self._param = TestTwitterProxy.TestParam()
 
     def tearDown(self):
@@ -118,28 +122,6 @@ class TestTwitterProxy(unittest.TestCase):
         except:
             pass
         self.assertTrue(False)
-
-    @patch('shared_code.twitter_oauth_helper.create_session')
-    def test_get_get_session(self, mock):
-        get_mock = Mock()
-        get_mock.configure_mock(get='test')
-
-        mock.return_value = get_mock
-
-        session = twitter_proxy.get_get_session()
-
-        self.assertEqual(session, 'test')
-
-    @patch('shared_code.twitter_oauth_helper.create_session')
-    def test_get_get_session(self, mock):
-        get_mock = Mock()
-        get_mock.configure_mock(post='test')
-
-        mock.return_value = get_mock
-
-        session = twitter_proxy.get_post_session()
-
-        self.assertEqual(session, 'test')
 
 if __name__ == '__main__':
     unittest.main()

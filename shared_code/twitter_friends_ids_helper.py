@@ -1,11 +1,11 @@
 # <project_root>/shared_code/twitter_friends_ids_helper.py
 
-import json
 from os import environ
 from shared_code import twitter_proxy
 
 class Param(twitter_proxy.ParamInterface):
     def __init__(self):
+        super().__init__()
         self._param = {
             'user_id': environ['TWITTER_USER_ID'],
             'screen_name': None,
@@ -53,3 +53,7 @@ class Param(twitter_proxy.ParamInterface):
 
     def get_endpoint_url(self) -> str:
         return 'https://api.twitter.com/1.1/friends/ids.json'
+
+    def get_session(self) -> object:
+        return self._session.get
+

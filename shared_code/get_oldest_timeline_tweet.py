@@ -13,7 +13,7 @@ def get():
         param.set_count(cnt)
         param.set_max_id(max_id)
 
-        timeline = twitter_proxy.request(param, twitter_proxy.get_get_session())
+        timeline = twitter_proxy.request(param, param.get_session())
         is_exit = len(timeline) != cnt
 
         record = timeline[-1]

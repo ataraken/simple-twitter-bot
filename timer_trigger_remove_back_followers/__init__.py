@@ -19,18 +19,18 @@ def main(mytimer: func.TimerRequest) -> None:
 
     try:
         param = twitter_friends_ids_helper.Param()
-        friends = twitter_proxy.request(param, twitter_proxy.get_get_session())
+        friends = twitter_proxy.request(param, param.get_session())
 
         param = twitter_followers_ids_helper.Param()
-        followers = twitter_proxy.request(param, twitter_proxy.get_get_session())
+        followers = twitter_proxy.request(param, param.get_session())
 
         targets = [ id for id in friends['ids'] if not id in followers['ids'] ]
 
         for id in targets:
             param = twitter_friendships_destroy_helper.Param(id)
-            twitter_proxy.request(param, twitter_proxy.get_post_session())
+            twitter_proxy.request(param, param.get_session())
 
     except Exception as e:
-        logging.info(f'Python timer trigger function. %s %s', e, utc_timestamp)
+        logging.error(f'Python timer trigger function. %s %s', e, utc_timestamp)
 
     logging.info('Python timer trigger function exit at %s', utc_timestamp)
