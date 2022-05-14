@@ -5,7 +5,7 @@ import json
 from abc import ABC, abstractmethod
 from typing import Any
 
-from shared_code import twitter_oauth_helper
+from shared_code.twitter.api import twitter_oauth_helper
 
 class ParamInterface(ABC):
     """ The Interface for parameter to use twitter API."""

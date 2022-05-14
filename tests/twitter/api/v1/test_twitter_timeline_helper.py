@@ -5,12 +5,12 @@
 import unittest
 from unittest.mock import patch
 
-from shared_code import twitter_timeline_helper
+from shared_code.twitter.api.v1 import twitter_timeline_helper
 
 class TestTwitterTimelineParam(unittest.TestCase):
     """Unit Test for twitter_timeline_helper.py"""
 
-    @patch('shared_code.twitter_oauth_helper.create_session')
+    @patch('shared_code.twitter.api.twitter_oauth_helper.create_session')
     @patch.dict('os.environ', {'TWITTER_USER_ID': 'test-user-id'})
     def setUp(self, mock) -> None:
         self._param = twitter_timeline_helper.Param()

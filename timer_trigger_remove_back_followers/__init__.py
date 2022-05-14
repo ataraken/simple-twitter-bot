@@ -3,10 +3,10 @@ import logging
 
 import azure.functions as func
 
-from shared_code import twitter_proxy
-from shared_code import twitter_friends_ids_helper
-from shared_code import twitter_followers_ids_helper
-from shared_code import twitter_friendships_destroy_helper
+from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import twitter_friends_ids_helper
+from shared_code.twitter.api.v1 import twitter_followers_ids_helper
+from shared_code.twitter.api.v1 import twitter_friendships_destroy_helper
 
 def main(mytimer: func.TimerRequest) -> None:
     utc_timestamp = datetime.datetime.utcnow().replace(

@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import Mock
 from unittest.mock import patch
 
-from shared_code import get_oldest_timeline_tweet
+from shared_code.twitter import get_oldest_timeline_tweet
 
 class TestGetOldestTimelineTweet(unittest.TestCase):
     """get_oldest_timeline_tweetに対するユニットテスト
@@ -17,8 +17,8 @@ class TestGetOldestTimelineTweet(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    @patch('shared_code.twitter_timeline_helper.Param')
-    @patch('shared_code.twitter_proxy.request')
+    @patch('shared_code.twitter.api.v1.twitter_timeline_helper.Param')
+    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
     def test_get1(self, request_mock, param_mock) -> None:
         """タイムライン取得が１回ですむ場合のテスト
         """
@@ -29,8 +29,8 @@ class TestGetOldestTimelineTweet(unittest.TestCase):
         self.assertEqual(id, '123')
         self.assertEqual(text, 'text')
 
-    @patch('shared_code.twitter_timeline_helper.Param')
-    @patch('shared_code.twitter_proxy.request')
+    @patch('shared_code.twitter.api.v1.twitter_timeline_helper.Param')
+    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
     def test_get2(self, request_mock, param_mock) -> None:
         """タイムライン取得が２回の場合のテスト
         """
@@ -44,8 +44,8 @@ class TestGetOldestTimelineTweet(unittest.TestCase):
         self.assertEqual(text, 'text-398')
         self.assertEqual(request_mock.call_count, 2)
 
-    @patch('shared_code.twitter_timeline_helper.Param')
-    @patch('shared_code.twitter_proxy.request')
+    @patch('shared_code.twitter.api.v1.twitter_timeline_helper.Param')
+    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
     def test_get3(self, request_mock, param_mock) -> None:
         """タイムライン取得が３回の場合のテスト
         """
@@ -60,8 +60,8 @@ class TestGetOldestTimelineTweet(unittest.TestCase):
         self.assertEqual(text, 'text-598')
         self.assertEqual(request_mock.call_count, 3)
 
-    @patch('shared_code.twitter_timeline_helper.Param')
-    @patch('shared_code.twitter_proxy.request')
+    @patch('shared_code.twitter.api.v1.twitter_timeline_helper.Param')
+    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
     def test_error(self, request_mock, param_mock) -> None:
         """エラーが発生する場合のテスト
         """

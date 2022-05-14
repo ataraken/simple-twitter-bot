@@ -1,7 +1,7 @@
 # <project_root>/shared_code/get_oldest_timeline_tweet.py
 
-from shared_code import twitter_proxy
-from shared_code import twitter_timeline_helper
+from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import twitter_timeline_helper
 
 def get():
     cnt = 200

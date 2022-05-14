@@ -1,7 +1,7 @@
 # <project_root>/shared_code/twitter_followers_ids_helper.py
 
 from os import environ
-from shared_code import twitter_proxy
+from shared_code.twitter.api.v1 import twitter_proxy
 
 class Param(twitter_proxy.ParamInterface):
     def __init__(self):

@@ -6,7 +6,7 @@ from unittest.mock import Mock
 from unittest.mock import patch
 
 import shared_code
-from shared_code import twitter_proxy
+from shared_code.twitter.api.v1 import twitter_proxy
 
 class TestTwitterProxy(unittest.TestCase):
     """Unit Test for twitter_proxy.py."""
@@ -26,7 +26,7 @@ class TestTwitterProxy(unittest.TestCase):
         def get_session(self) -> object:
             return None
 
-    @patch('shared_code.twitter_oauth_helper.create_session')
+    @patch('shared_code.twitter.api.twitter_oauth_helper.create_session')
     def setUp(self, mock):
         self._param = TestTwitterProxy.TestParam()
 

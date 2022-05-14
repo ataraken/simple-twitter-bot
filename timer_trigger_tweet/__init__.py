@@ -3,10 +3,10 @@ import logging
 
 import azure.functions as func
 
-from shared_code import twitter_proxy
-from shared_code import get_oldest_timeline_tweet
-from shared_code import twitter_destroy_helper
-from shared_code import twitter_update_helper
+from shared_code.twitter import get_oldest_timeline_tweet
+from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import twitter_destroy_helper
+from shared_code.twitter.api.v1 import twitter_update_helper
 
 def main(mytimer: func.TimerRequest) -> None:
     utc_timestamp = datetime.datetime.utcnow().replace(

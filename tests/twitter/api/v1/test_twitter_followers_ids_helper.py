@@ -2,21 +2,22 @@
 import unittest
 from unittest.mock import patch
 
-from shared_code import twitter_friends_ids_helper
+from shared_code.twitter.api.v1 import twitter_followers_ids_helper
 
-class TestTwitterFriendsIdsHelper(unittest.TestCase):
 
-    @patch('shared_code.twitter_oauth_helper.create_session')
+class TestTwitterFollowersIdsHelper(unittest.TestCase):
+
+    @patch('shared_code.twitter.api.twitter_oauth_helper.create_session')
     @patch.dict('os.environ', {'TWITTER_USER_ID': 'test-user-id'})
     def setUp(self, mock) -> None:
-        self._param = twitter_friends_ids_helper.Param()
+        self._param = twitter_followers_ids_helper.Param()
 
     def tearDown(self) -> None:
         self._param = None
 
     def test_init_error(self) -> None:
         try:
-            twitter_friends_ids_helper.Param()
+            twitter_followers_ids_helper.Param()
         except Exception as e:
             self.assertTrue(True)
 
@@ -80,7 +81,7 @@ class TestTwitterFriendsIdsHelper(unittest.TestCase):
         self.assertEqual(self._param.get_count(), 5000)
 
     def test_endpoint_url(self) -> None:
-        self.assertEqual(self._param.get_endpoint_url(), 'https://api.twitter.com/1.1/friends/ids.json')
+        self.assertEqual(self._param.get_endpoint_url(), 'https://api.twitter.com/1.1/followers/ids.json')
 
     def test_session(self) -> None:
         self.assertEqual(self._param.get_session(), self._param._session.get)
