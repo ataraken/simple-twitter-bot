@@ -1,9 +1,9 @@
-# <project_root>/shared_code/twitter_followers_ids_helper.py
+# <project_root>/shared_code/twitter_friends_ids_helper.py
 
 from os import environ
-from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import proxy
 
-class Param(twitter_proxy.ParamInterface):
+class Param(proxy.ParamInterface):
     def __init__(self):
         super().__init__()
         self._param = {
@@ -17,7 +17,7 @@ class Param(twitter_proxy.ParamInterface):
     def set_user_id(self, id: str) -> None:
         self._param['user_id'] = id
 
-    def get_user_id(self) -> None:
+    def get_user_id(self) -> str:
         return self._param['user_id']
 
     def set_screen_name(self, name: str) -> None:
@@ -52,7 +52,7 @@ class Param(twitter_proxy.ParamInterface):
         return self._param['count']
 
     def get_endpoint_url(self) -> str:
-        return 'https://api.twitter.com/1.1/followers/ids.json'
+        return 'https://api.twitter.com/1.1/friends/ids.json'
 
     def get_session(self) -> object:
         return self._session.get

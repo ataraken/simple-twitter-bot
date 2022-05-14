@@ -5,13 +5,13 @@ import json
 from abc import ABC, abstractmethod
 from typing import Any
 
-from shared_code.twitter.api import twitter_oauth_helper
+from shared_code.twitter.api import oauth
 
 class ParamInterface(ABC):
     """ The Interface for parameter to use twitter API."""
 
     def __init__(self):
-        self._session = twitter_oauth_helper.create_session()
+        self._session = oauth.create_session()
 
     def convert_to_query(self) -> str:
         """パラメーターから Twitter API のクエリ文字列を生成

@@ -1,8 +1,8 @@
-# <project_root>/shared_code/twitter_update_helper.py
+# <project_root>/shared_code/update.py
 
-from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import proxy
 
-class Param(twitter_proxy.ParamInterface):
+class Param(proxy.ParamInterface):
     def __init__(self, status: str):
         super().__init__()
         self._param = {

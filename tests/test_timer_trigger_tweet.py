@@ -11,9 +11,9 @@ class TestTimerTriggerTweet(unittest.TestCase):
         def __init__(self):
             self.past_due = True
 
-    @patch('shared_code.twitter.api.v1.twitter_destroy_helper.Param')
-    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
-    @patch('shared_code.twitter.api.v1.twitter_update_helper.Param')
+    @patch('shared_code.twitter.api.v1.destroy.Param')
+    @patch('shared_code.twitter.api.v1.proxy.request')
+    @patch('shared_code.twitter.api.v1.update.Param')
     @patch('shared_code.twitter.get_oldest_timeline_tweet.get')
     def test_get(self, oldest_mock, update_mock, proxy_mock, destroy_mock):
         oldest_mock.return_value = '123', 'text'
@@ -27,9 +27,9 @@ class TestTimerTriggerTweet(unittest.TestCase):
         self.assertEqual(destroy_mock.call_count, 1)
         self.assertEqual(proxy_mock.call_count, 2)
 
-    @patch('shared_code.twitter.api.v1.twitter_destroy_helper.Param')
-    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
-    @patch('shared_code.twitter.api.v1.twitter_update_helper.Param')
+    @patch('shared_code.twitter.api.v1.destroy.Param')
+    @patch('shared_code.twitter.api.v1.proxy.request')
+    @patch('shared_code.twitter.api.v1.update.Param')
     @patch('shared_code.twitter.get_oldest_timeline_tweet.get')
     def test_error1(self, oldest_mock, update_mock, proxy_mock, sdestroy_mock):
         oldest_mock.side_effect = RuntimeError('Test Error.')
@@ -38,9 +38,9 @@ class TestTimerTriggerTweet(unittest.TestCase):
 
         self.assertTrue(True)
 
-    @patch('shared_code.twitter.api.v1.twitter_destroy_helper.Param')
-    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
-    @patch('shared_code.twitter.api.v1.twitter_update_helper.Param')
+    @patch('shared_code.twitter.api.v1.destroy.Param')
+    @patch('shared_code.twitter.api.v1.proxy.request')
+    @patch('shared_code.twitter.api.v1.update.Param')
     @patch('shared_code.twitter.get_oldest_timeline_tweet.get')
     def test_error2(self, oldest_mock, update_mock, proxy_mock, destroy_mock):
         oldest_mock.return_value = '123', 'text'
@@ -53,9 +53,9 @@ class TestTimerTriggerTweet(unittest.TestCase):
         self.assertEqual(update_mock.call_count, 1)
         self.assertEqual(destroy_mock.call_count, 0)
 
-    @patch('shared_code.twitter.api.v1.twitter_destroy_helper.Param')
-    @patch('shared_code.twitter.api.v1.twitter_proxy.request')
-    @patch('shared_code.twitter.api.v1.twitter_update_helper.Param')
+    @patch('shared_code.twitter.api.v1.destroy.Param')
+    @patch('shared_code.twitter.api.v1.proxy.request')
+    @patch('shared_code.twitter.api.v1.update.Param')
     @patch('shared_code.twitter.get_oldest_timeline_tweet.get')
     def test_error3(self, oldest_mock, update_mock, proxy_mock, destroy_mock):
         oldest_mock.return_value = '123', 'text'

@@ -1,9 +1,9 @@
-# <project_root>/shared_code/twitter_timeline_helper.py
+# <project_root>/shared_code/timeline.py
 
 from os import environ
-from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import proxy
 
-class Param(twitter_proxy.ParamInterface):
+class Param(proxy.ParamInterface):
     def __init__(self):
         super().__init__()
         self._param = {

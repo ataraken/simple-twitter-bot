@@ -2,21 +2,21 @@
 import unittest
 from unittest.mock import patch
 
-from shared_code.twitter.api.v1 import twitter_friends_ids_helper
+from shared_code.twitter.api.v1 import friends_ids
 
 class TestTwitterFriendsIdsHelper(unittest.TestCase):
 
-    @patch('shared_code.twitter.api.twitter_oauth_helper.create_session')
+    @patch('shared_code.twitter.api.oauth.create_session')
     @patch.dict('os.environ', {'TWITTER_USER_ID': 'test-user-id'})
     def setUp(self, mock) -> None:
-        self._param = twitter_friends_ids_helper.Param()
+        self._param = friends_ids.Param()
 
     def tearDown(self) -> None:
         self._param = None
 
     def test_init_error(self) -> None:
         try:
-            twitter_friends_ids_helper.Param()
+            friends_ids.Param()
         except Exception as e:
             self.assertTrue(True)
 

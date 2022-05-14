@@ -1,4 +1,4 @@
-"""The Unit Test for twitter_proxy.py
+"""The Unit Test for proxy.py
 """
 
 import unittest
@@ -6,12 +6,12 @@ from unittest.mock import Mock
 from unittest.mock import patch
 
 import shared_code
-from shared_code.twitter.api.v1 import twitter_proxy
+from shared_code.twitter.api.v1 import proxy
 
 class TestTwitterProxy(unittest.TestCase):
-    """Unit Test for twitter_proxy.py."""
+    """Unit Test for proxy.py."""
 
-    class TestParam(twitter_proxy.ParamInterface):
+    class TestParam(proxy.ParamInterface):
         """Mock Class"""
         def __init__(self) -> None:
             super().__init__()
@@ -26,7 +26,7 @@ class TestTwitterProxy(unittest.TestCase):
         def get_session(self) -> object:
             return None
 
-    @patch('shared_code.twitter.api.twitter_oauth_helper.create_session')
+    @patch('shared_code.twitter.api.oauth.create_session')
     def setUp(self, mock):
         self._param = TestTwitterProxy.TestParam()
 
@@ -69,7 +69,7 @@ class TestTwitterProxy(unittest.TestCase):
         session_mock = Mock()
         session_mock.return_value = response_mock
 
-        res = twitter_proxy.request(self._param, session_mock)
+        res = proxy.request(self._param, session_mock)
 
         session_mock.assert_called_once_with(self._param.get_endpoint_url(), params=self._param.convert_to_query())
         self.assertEqual(res['key'], 'value')
@@ -84,7 +84,7 @@ class TestTwitterProxy(unittest.TestCase):
         session_mock = Mock()
         session_mock.return_value = response_mock
 
-        res = twitter_proxy.request(self._param, session_mock)
+        res = proxy.request(self._param, session_mock)
 
         session_mock.assert_called_once_with(self._param.get_endpoint_url())
         self.assertEqual(res['key'], 'value')
@@ -97,7 +97,7 @@ class TestTwitterProxy(unittest.TestCase):
         session_mock.return_value = response_mock
 
         try:
-            twitter_proxy.request(self._param, session_mock)
+            proxy.request(self._param, session_mock)
         except RuntimeError:
             response_mock.called
             self.assertTrue(True)
@@ -114,7 +114,7 @@ class TestTwitterProxy(unittest.TestCase):
         session_mock.return_value = response_mock
 
         try:
-            twitter_proxy.request(self._param, session_mock)
+            proxy.request(self._param, session_mock)
         except RuntimeError:
             session_mock.called
             self.assertTrue(True)
