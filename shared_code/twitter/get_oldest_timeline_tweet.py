@@ -3,6 +3,8 @@
 タイムラインのもっとも古いツィートを検索し、そのツィートの ID とテキストを返す
 """
 
+from typing import Tuple
+
 from shared_code.twitter.api.v1 import proxy
 from shared_code.twitter.api.v1 import timeline
 
