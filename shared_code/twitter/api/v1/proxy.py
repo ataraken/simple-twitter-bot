@@ -1,4 +1,4 @@
-"""The proxy to the Twitter service.
+"""Twitter へのプロキシ
 """
 import json
 

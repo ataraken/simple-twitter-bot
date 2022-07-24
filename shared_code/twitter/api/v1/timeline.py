@@ -1,10 +1,22 @@
-# <project_root>/shared_code/timeline.py
+"""GET statuses/user_timeline API
+
+対象アカウントのタイムラインを取得するための情報を保持します。
+
+https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
+"""
 
 from os import environ
 from shared_code.twitter.api.v1 import proxy
 
 class Param(proxy.ParamInterface):
+    """GET statuses/user_timeline API のパラメーター"""
+
     def __init__(self):
+        """コンストラクタ
+
+        Attributes:
+            _param: パラメーター
+        """
         super().__init__()
         self._param = {
             'user_id': environ['TWITTER_USER_ID'],
@@ -60,4 +72,3 @@ class Param(proxy.ParamInterface):
 
     def get_session(self) -> object:
         return self._session.get
-

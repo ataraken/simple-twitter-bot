@@ -1,3 +1,8 @@
+"""Timer Trigger remove back followers function
+
+タイマートリガーによって呼び出され、対象アカウントを follow していない friend を削除する。
+"""
+
 import datetime
 import logging
 
@@ -9,6 +14,11 @@ from shared_code.twitter.api.v1 import followers_ids
 from shared_code.twitter.api.v1 import friendships_destroy
 
 def main(mytimer: func.TimerRequest) -> None:
+    """main関数
+
+    Args:
+        mytimer
+    """    
     utc_timestamp = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
 

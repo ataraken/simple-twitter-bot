@@ -8,4 +8,10 @@ For a `TimerTrigger` to work, you provide a schedule in the form of a [cron expr
 
 ## Learn more
 
-<TODO> Documentation
+### 仕様
+
+決められた時間にツィートを行います。
+
+* タイムラインのうち、もっとも古いツィートの文言をツィートする
+* 最も古いツィートを削除する
+

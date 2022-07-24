@@ -1,3 +1,9 @@
+"""timer trigger tweet function
+
+タイマートリガーによって呼び出され、
+対象アカウントのタイムラインのもっとも古いツィートの文言をツィートする。
+最も古いツィートは削除する。
+"""
 import datetime
 import logging
 
@@ -9,6 +15,11 @@ from shared_code.twitter.api.v1 import destroy
 from shared_code.twitter.api.v1 import update
 
 def main(mytimer: func.TimerRequest) -> None:
+    """main関数
+
+    Args:
+        mytimer
+    """    
     utc_timestamp = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
 

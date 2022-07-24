@@ -1,9 +1,21 @@
-# <project_root>/shared_code/get_oldest_timeline_tweet.py
+"""タイムラインのもっとも古いツィートを見つける関数
+
+タイムラインのもっとも古いツィートを検索し、そのツィートの ID とテキストを返す
+"""
 
 from shared_code.twitter.api.v1 import proxy
 from shared_code.twitter.api.v1 import timeline
 
-def get():
+def get() -> Tuple[str, str]:
+    """最も古いツィートを取得する
+
+    Args:
+    
+    Returns:
+        もっとも古いツィートの ID と文章
+
+    Raises:
+    """
     cnt = 200
     is_exit = False
     max_id = None

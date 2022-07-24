@@ -8,4 +8,13 @@ For a `TimerTrigger` to work, you provide a schedule in the form of a [cron expr
 
 ## Learn more
 
-<TODO> Documentation
+### 仕様
+
+決められた時間に次のことを行います。
+
+* 対象アカウントの friend のうち、follower でない friend を削除する
+  * 対象アカウントがフォローしているアカウントのうち、対象アカウントをフォローしてくれていないアカウントのフォローをやめる
+
+### 制限事項
+
+friend / follower がともに 5000 以下であること。

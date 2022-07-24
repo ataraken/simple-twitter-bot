@@ -1,9 +1,25 @@
-# <project_root>/shared_code/twitter_friends_users_show_helper.py
+"""POST friendships/destroy API
+
+friend を削除します。
+フォローしているユーザーのフォローをやめることに相当します。
+
+https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-destroy
+"""
 
 from shared_code.twitter.api.v1 import proxy
 
 class Param(proxy.ParamInterface):
+    """POST friendships/destroy API のパラメーター
+
+    Attributes:
+        _param: パラメーター
+    """
     def __init__(self, user_id: int):
+        """コンストラクタ
+
+        Args:
+            user_id: 削除する friend の ID
+        """
         super().__init__()
         self._param = {
             'screen_name': None,

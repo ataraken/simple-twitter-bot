@@ -1,10 +1,22 @@
-# <project_root>/shared_code/twitter_friends_ids_helper.py
+"""GET friends/ids API
+
+friend の ID のリストを取得します。
+friend は対象アカウントがフォローしているユーザーのことです。
+
+https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friends-ids
+"""
 
 from os import environ
 from shared_code.twitter.api.v1 import proxy
 
 class Param(proxy.ParamInterface):
+    """GET friends/ids API のパラメーター
+
+    Attributes:
+        _param: パラメーター
+    """
     def __init__(self):
+        """コンストラクタ"""
         super().__init__()
         self._param = {
             'user_id': environ['TWITTER_USER_ID'],
